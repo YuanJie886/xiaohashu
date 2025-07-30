@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quanxiaoha.xiaohashu.auth.domain.mapper.PermissionDOMapper">
+
+    <resultMap id="BaseResultMap" type="com.quanxiaoha.xiaohashu.auth.domain.dataobject.PermissionDO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="TINYINT"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="permission_key" property="permissionKey" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, parent_id, name, type, menu_url, menu_icon, sort, permission_key, status, create_time, update_time, is_deleted
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_permission (parent_id, name, type, menu_url, menu_icon, sort, permission_key, status, create_time, update_time, is_deleted)
+        VALUES (#{parentId}, #{name}, #{type}, #{menuUrl}, #{menuIcon}, #{sort}, #{permissionKey}, #{status}, #{createTime}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="menuUrl != null">menu_url,</if>
+            <if test="menuIcon != null">menu_icon,</if>
+            <if test="sort != null">sort,</if>
+            <if test="permissionKey != null">permission_key,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="menuUrl != null">#{menuUrl},</if>
+            <if test="menuIcon != null">#{menuIcon},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="permissionKey != null">#{permissionKey},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_permission
+        WHERE id = #{id} AND is_deleted = 0
+    </select>
+    <select id="selectAppEnabledList"
+            resultType="com.quanxiaoha.xiaohashu.auth.domain.dataobject.PermissionDO">
+        select id,name,permission_key from t_permission
+        where status = 0 and type = 3 and is_deleted = 0
+    </select>
+
+
+    <update id="updateByPrimaryKeySelective">
+        UPDATE t_permission
+        <set>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="menuUrl != null">menu_url = #{menuUrl},</if>
+            <if test="menuIcon != null">menu_icon = #{menuIcon},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="permissionKey != null">permission_key = #{permissionKey},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey">
+        UPDATE t_permission
+        SET parent_id = #{parentId},
+            name = #{name},
+            type = #{type},
+            menu_url = #{menuUrl},
+            menu_icon = #{menuIcon},
+            sort = #{sort},
+            permission_key = #{permissionKey},
+            status = #{status},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        UPDATE t_permission
+        SET is_deleted = 1,
+            update_time = NOW()
+        WHERE id = #{id}
+    </delete>
+</mapper>

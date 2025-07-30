@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quanxiaoha.xiaohashu.auth.domain.mapper.UserDOMapper">
+
+  <!-- ResultMap to map columns to the UserDO object -->
+  <resultMap id="BaseResultMap" type="com.quanxiaoha.xiaohashu.auth.domain.dataobject.UserDO">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="xiaohashu_id" property="xiaohashuId" jdbcType="VARCHAR"/>
+    <result column="password" property="password" jdbcType="VARCHAR"/>
+    <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+    <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+    <result column="background_img" property="backgroundImg" jdbcType="VARCHAR"/>
+    <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="sex" property="sex" jdbcType="TINYINT"/>
+    <result column="status" property="status" jdbcType="TINYINT"/>
+    <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="is_deleted" property="isDeleted" jdbcType="BOOLEAN"/>
+  </resultMap>
+
+  <!-- Insert statement -->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO t_user (xiaohashu_id, password, nickname, avatar, birthday, background_img, phone, sex, status, introduction, create_time, update_time, is_deleted)
+    VALUES (#{xiaohashuId}, #{password}, #{nickname}, #{avatar}, #{birthday}, #{backgroundImg}, #{phone}, #{sex}, #{status}, #{introduction}, #{createTime}, #{updateTime}, #{isDeleted})
+  </insert>
+
+  <!-- Insert selective statement -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xiaohashuId != null">xiaohashu_id,</if>
+      <if test="password != null">password,</if>
+      <if test="nickname != null">nickname,</if>
+      <if test="avatar != null">avatar,</if>
+      <if test="birthday != null">birthday,</if>
+      <if test="backgroundImg != null">background_img,</if>
+      <if test="phone != null">phone,</if>
+      <if test="sex != null">sex,</if>
+      <if test="status != null">status,</if>
+      <if test="introduction != null">introduction,</if>
+      <if test="createTime != null">create_time,</if>
+      <if test="updateTime != null">update_time,</if>
+      <if test="isDeleted != null">is_deleted,</if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="xiaohashuId != null">#{xiaohashuId},</if>
+      <if test="password != null">#{password},</if>
+      <if test="nickname != null">#{nickname},</if>
+      <if test="avatar != null">#{avatar},</if>
+      <if test="birthday != null">#{birthday},</if>
+      <if test="backgroundImg != null">#{backgroundImg},</if>
+      <if test="phone != null">#{phone},</if>
+      <if test="sex != null">#{sex},</if>
+      <if test="status != null">#{status},</if>
+      <if test="introduction != null">#{introduction},</if>
+      <if test="createTime != null">#{createTime},</if>
+      <if test="updateTime != null">#{updateTime},</if>
+      <if test="isDeleted != null">#{isDeleted},</if>
+    </trim>
+  </insert>
+
+  <!-- Select by primary key -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    SELECT * FROM t_user WHERE id = #{id}
+  </select>
+
+  <select id="selectByPhone" resultType="com.quanxiaoha.xiaohashu.auth.domain.dataobject.UserDO">
+        select id,password,phone,status from t_user where phone=#{phone}
+  </select>
+
+  <!-- Update by primary key selective -->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE t_user
+    <set>
+      <if test="xiaohashuId != null">xiaohashu_id = #{xiaohashuId},</if>
+      <if test="password != null">password = #{password},</if>
+      <if test="nickname != null">nickname = #{nickname},</if>
+      <if test="avatar != null">avatar = #{avatar},</if>
+      <if test="birthday != null">birthday = #{birthday},</if>
+      <if test="backgroundImg != null">background_img = #{backgroundImg},</if>
+      <if test="phone != null">phone = #{phone},</if>
+      <if test="sex != null">sex = #{sex},</if>
+      <if test="status != null">status = #{status},</if>
+      <if test="introduction != null">introduction = #{introduction},</if>
+      <if test="createTime != null">create_time = #{createTime},</if>
+      <if test="updateTime != null">update_time = #{updateTime},</if>
+      <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- Update by primary key -->
+  <update id="updateByPrimaryKey">
+    UPDATE t_user
+    SET xiaohashu_id = #{xiaohashuId},
+        password = #{password},
+        nickname = #{nickname},
+        avatar = #{avatar},
+        birthday = #{birthday},
+        background_img = #{backgroundImg},
+        phone = #{phone},
+        sex = #{sex},
+        status = #{status},
+        introduction = #{introduction},
+        create_time = #{createTime},
+        update_time = #{updateTime},
+        is_deleted = #{isDeleted}
+    WHERE id = #{id}
+  </update>
+
+  <!-- Delete by primary key -->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM t_user WHERE id = #{id}
+  </delete>
+
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quanxiaoha.xiaohashu.auth.domain.mapper.RolePermissionDOMapper">
+
+    <resultMap id="BaseResultMap" type="com.quanxiaoha.xiaohashu.auth.domain.dataobject.RolePermissionDO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="role_id" property="roleId" jdbcType="BIGINT"/>
+        <result column="permission_id" property="permissionId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, role_id, permission_id, create_time, update_time, is_deleted
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_role_permission_rel (role_id, permission_id, create_time, update_time, is_deleted)
+        VALUES (#{roleId}, #{permissionId}, #{createTime}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_role_permission_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="permissionId != null">permission_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="permissionId != null">#{permissionId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+        </trim>
+    </insert>
+
+    <select id="selectByRoleIds"
+            resultType="com.quanxiaoha.xiaohashu.auth.domain.dataobject.RolePermissionDO">
+        select role_id, permission_id
+        from t_role_permission_rel
+        where role_id in
+        <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_role_permission_rel
+        WHERE id = #{id} AND is_deleted = 0
+    </select>
+
+    <update id="updateByPrimaryKeySelective">
+        UPDATE t_role_permission_rel
+        <set>
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="permissionId != null">permission_id = #{permissionId},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey">
+        UPDATE t_role_permission_rel
+        SET role_id = #{roleId},
+            permission_id = #{permissionId},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        UPDATE t_role_permission_rel
+        SET is_deleted = 1,
+            update_time = NOW()
+        WHERE id = #{id}
+    </delete>
+</mapper>
