@@ -63,14 +63,14 @@ public class UserServiceImpl implements UserService {
             return Response.fail("手机号或密码不能为空");
         }
         String phone = userVO.getPhone();
-        String password = passwordEncoder.encode(userVO.getPassword());
+        String password = userVO.getPassword();
         // Find user by phone number
         UserDO existUser = userDOMapper.selectByPhone(phone);
         if (existUser == null) {
             return Response.fail("用户不存在");
         }
         // Verify password (in production, use proper password hashing)
-        if (!existUser.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, existUser.getPassword())) {
             return Response.fail("密码错误");
         }
         // Check if user is active

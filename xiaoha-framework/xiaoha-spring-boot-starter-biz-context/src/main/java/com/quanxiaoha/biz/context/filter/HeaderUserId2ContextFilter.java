@@ -11,7 +11,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 @Slf4j
 public class HeaderUserId2ContextFilter extends OncePerRequestFilter {
 

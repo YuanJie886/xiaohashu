@@ -26,6 +26,18 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 业务接口日志组件 -->
+        <dependency>
+            <groupId>com.quanxiaoha</groupId>
+            <artifactId>xiaoha-spring-boot-starter-biz-operationlog</artifactId>
+        </dependency>
+
+        <!-- Jackson 组件 -->
+        <dependency>
+            <groupId>com.quanxiaoha</groupId>
+            <artifactId>xiaoha-spring-boot-starter-jackson</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.quanxiaoha</groupId>
             <artifactId>xiaoha-common</artifactId>
@@ -63,8 +75,20 @@
         </dependency>
 
         <dependency>
+            <groupId>com.quanxiaoha.xiaohashu.user.biz</groupId>
+            <artifactId>xiaohashu-user-biz</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>3.0.4</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

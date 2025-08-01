@@ -38,7 +38,13 @@ spring:
         wall: # 防火墙
           config:
             multi-statement-allow: true
-
+sa-token:
+  # 配置为不创建Cookie（因为是微服务）
+  is-read-cookie: false
+  # 配置token名称，需与网关一致
+  token-name: Authorization
+  # 其他必要配置...
+  token-prefix: Bearer
 logging:
   level:
     com.quanxiaoha.xiaohashu.user.biz.domain.mapper: debug

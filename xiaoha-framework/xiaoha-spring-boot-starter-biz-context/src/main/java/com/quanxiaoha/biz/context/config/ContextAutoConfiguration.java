@@ -4,6 +4,7 @@ import com.quanxiaoha.biz.context.filter.HeaderUserId2ContextFilter;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author: 犬小哈
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Bean;
  * @version: v1.0.0
  * @description: TODO
  **/
-@AutoConfiguration
+@Configuration
 public class ContextAutoConfiguration {
 
     @Bean
