@@ -39,5 +39,22 @@
             <groupId>com.quanxiaoha</groupId>
             <artifactId>xiaoha-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form-spring</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-core</artifactId>
+            <version>1.44.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

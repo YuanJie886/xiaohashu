@@ -1,1 +1,3 @@
 com.quanxiaoha.biz.context.config.ContextAutoConfiguration
+com.quanxiaoha.biz.context.config.FeignContextAutoConfiguration
+
